@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Millenium Software Solutions | PMO support and IT consulting for federal modernization programs</title>
+<meta name="description" content="Millenium Software Solutions Inc. provides PMO support and IT consulting that helps federal executives plan, govern, and deliver multimillion-dollar technology and financial modernization programs.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='34 20 152 160'%3E%3Crect x='34' y='20' width='152' height='160' fill='%23fff'/%3E%3Cpath d='M44 37 68 28 63 172H44z' fill='%231c2a44'/%3E%3Cpath d='M152 28 176 37V172H157z' fill='%231c2a44'/%3E%3Cpath d='M72 37 110 64 148 37 110 110z' fill='%232f4fd8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff; --tint: #f5f7fb; --ink: #101114; --muted: #4a4f59; --line: #e2e5eb;
+    --blue: #1f3dff; --ok: #0a7350; --bad: #c0271d;
+    --sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 120px 0; scroll-margin-top: 100px; }
+  h2 { font-size: clamp(32px, 4.6vw, 56px); font-weight: 600; letter-spacing: -.04em; line-height: 1.04; }
+  .head { text-align: center; max-width: 860px; margin: 0 auto 64px; }
+  .head p { font-size: 18px; color: var(--muted); margin-top: 16px; }
+
+  .rv { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+  .rv.in { opacity: 1; transform: none; }
+
+  /* ---------- Logo ---------- */
+  .logo { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
+  .logo img { height: 44px; width: auto; display: block; }
+  .logo .txt { display: flex; flex-direction: column; }
+  .logo .w { font: 700 30px/.9 var(--sans); letter-spacing: -.055em; color: var(--ink); white-space: nowrap; }
+  .logo .mk { width: 37px; height: 40px; flex: none; display: block; }
+  .logo .s { font: 500 12px/1 var(--sans); color: var(--muted); margin-top: 6px; }
+
+  /* ---------- Buttons ---------- */
+  .btn { display: inline-flex; align-items: center; gap: 8px; font: 500 14.5px var(--sans); color: var(--blue); background: transparent; padding: 10px 20px; border: 1.5px solid var(--blue); text-decoration: none; cursor: pointer; transition: background .15s, color .15s; }
+  .btn:hover, .btn:focus-visible, .btn:active { background: var(--blue); color: #fff; }
+  .btn:disabled { opacity: .8; cursor: default; }
+  .link { position: relative; font: 500 15px var(--sans); text-decoration: none; padding-bottom: 3px; }
+  .link::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: var(--ink); transition: height .2s, background .2s; }
+  .link:hover::after { height: 2px; background: var(--blue); }
+
+  /* ---------- Nav ---------- */
+  nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+  nav.stuck { border-color: var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  nav .links { display: flex; align-items: center; gap: 34px; font-size: 14.5px; white-space: nowrap; }
+  nav .links a:not(.btn) { position: relative; text-decoration: none; color: var(--muted); padding: 6px 0; transition: color .2s; }
+  nav .links a:not(.btn)::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--blue); transform: scaleX(0); transform-origin: right; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  nav .links a:not(.btn):hover, nav .links a.cur { color: var(--ink); }
+  nav .links a:not(.btn):hover::after, nav .links a.cur::after { transform: scaleX(1); transform-origin: left; }
+  nav .btn { padding: 8px 16px; font-size: 14px; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; overflow: hidden; text-align: center; padding: 84px 0 470px; }
+  #px { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .hero .wrap { position: relative; z-index: 1; }
+  h1 { font-size: clamp(38px, 5.6vw, 72px); font-weight: 600; letter-spacing: -.05em; line-height: 1; max-width: 13.5em; margin: 0 auto; text-wrap: balance; }
+  h1 span { color: var(--blue); }
+  .hero .sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--muted); max-width: 37em; margin: 26px auto 0; }
+  .hero .cert { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 22px; }
+  .hero .cta { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: center; margin-top: 32px; }
+
+  /* ---------- One clear view ---------- */
+  .views { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); }
+  .view { padding: 30px 24px 34px 0; border-right: 1px solid var(--line); }
+  .view + .view { padding-left: 24px; }
+  .view:last-child { border-right: 0; }
+  .view svg { display: block; width: 100%; max-width: 180px; height: 84px; margin-bottom: 22px; }
+  .view h3 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+  .view p { font-size: 15px; color: var(--muted); margin-top: 6px; }
+  .view .pulse rect { transform-box: fill-box; transform-origin: bottom; animation: bars 3.6s ease-in-out infinite; animation-delay: calc(var(--i) * -.45s); }
+  @keyframes bars { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.62); } }
+  .view .cr { fill: #fff; stroke: #101114; stroke-width: 1.5; animation: cr 6s ease infinite; animation-delay: calc(var(--i) * .5s); }
+  @keyframes cr { 0%, 8% { fill: #fff; stroke: #101114; } 14%, 88% { fill: #1f3dff; stroke: #1f3dff; } 100% { fill: #fff; stroke: #101114; } }
+  .view .trk { fill: #fff; stroke: #101114; stroke-width: 1.5; animation: trk 6s ease infinite; }
+  @keyframes trk { 0%, 40% { fill: #fff; } 50%, 88% { fill: #e6f4ee; } 100% { fill: #fff; } }
+  .view .knob { fill: #101114; animation: knob 6s cubic-bezier(.6,0,.2,1) infinite; }
+  @keyframes knob { 0%, 40% { transform: translateX(0); fill: #101114; } 50%, 88% { transform: translateX(156px); fill: #0a7350; } 100% { transform: translateX(0); fill: #101114; } }
+  .view .fill { transform-box: fill-box; transform-origin: left; animation: fil 4.5s cubic-bezier(.3,.6,.2,1) infinite; animation-delay: calc(var(--i) * .5s); }
+  @keyframes fil { 0% { transform: scaleX(0); } 45%, 85% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0; } }
+  .view .tick { stroke-dasharray: 20; stroke-dashoffset: 20; animation: tck 4.5s ease infinite; animation-delay: calc(var(--i) * .5s); }
+  @keyframes tck { 0%, 40% { stroke-dashoffset: 20; } 50%, 90% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+
+  /* ---------- Problem ---------- */
+  .problem { background: var(--tint); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .pts { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 1000px; margin: 0 auto; padding-top: 34px; }
+  .pts::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 1.8s cubic-bezier(.4,.1,.2,1) .2s; }
+  .pts.in::before { transform: scaleX(1); }
+  .pt { position: relative; opacity: 0; transform: translateY(12px); transition: opacity .5s, transform .5s; transition-delay: calc(var(--i) * .4s + .5s); }
+  .pt::before { content: ''; position: absolute; left: 0; top: -40px; width: 12px; height: 12px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 4px var(--tint); }
+  .pts.in .pt { opacity: 1; transform: none; }
+  .pt .pk { font: 500 11.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--bad); }
+  .pt h3 { font-size: 21px; font-weight: 600; letter-spacing: -.025em; line-height: 1.18; margin-top: 10px; }
+  .pt p { font-size: 15.5px; color: var(--muted); margin-top: 8px; }
+
+  /* ---------- What we do ---------- */
+  .plats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 30px; margin-top: 22px; }
+  .plat { display: inline-flex; align-items: center; gap: 9px; font: 500 14px var(--sans); }
+  .ico { display: inline-block; width: 22px; height: 22px; background: var(--c, var(--ink)); -webkit-mask: var(--u) center / contain no-repeat; mask: var(--u) center / contain no-repeat; flex: none; }
+  .ico.lg { width: 44px; }
+  .i-oracle { --u: url("data:image/svg+xml,%3Csvg viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M16.412 4.412h-8.82a7.588 7.588 0 0 0-.008 15.176h8.828a7.588 7.588 0 0 0 0-15.176zm-.193 12.502H7.786a4.915 4.915 0 0 1 0-9.828h8.433a4.914 4.914 0 1 1 0 9.828z%22/%3E%3C/svg%3E"); }
+  .i-amazonaws { --u: url("data:image/svg+xml,%3Csvg viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M6.763 10.036c0 .296.032.535.088.71.064.176.144.368.256.576.04.063.056.127.056.183 0 .08-.048.16-.152.24l-.503.335a.383.383 0 0 1-.208.072c-.08 0-.16-.04-.239-.112a2.47 2.47 0 0 1-.287-.375 6.18 6.18 0 0 1-.248-.471c-.622.734-1.405 1.101-2.347 1.101-.67 0-1.205-.191-1.596-.574-.391-.384-.59-.894-.59-1.533 0-.678.239-1.23.726-1.644.487-.415 1.133-.623 1.955-.623.272 0 .551.024.846.064.296.04.6.104.918.176v-.583c0-.607-.127-1.03-.375-1.277-.255-.248-.686-.367-1.3-.367-.28 0-.568.031-.863.103-.295.072-.583.16-.862.272a2.287 2.287 0 0 1-.28.104.488.488 0 0 1-.127.023c-.112 0-.168-.08-.168-.247v-.391c0-.128.016-.224.056-.28a.597.597 0 0 1 .224-.167c.279-.144.614-.264 1.005-.36a4.84 4.84 0 0 1 1.246-.151c.95 0 1.644.216 2.091.647.439.43.662 1.085.662 1.963v2.586zm-3.24 1.214c.263 0 .534-.048.822-.144.287-.096.543-.271.758-.51.128-.152.224-.32.272-.512.047-.191.08-.423.08-.694v-.335a6.66 6.66 0 0 0-.735-.136 6.02 6.02 0 0 0-.75-.048c-.535 0-.926.104-1.19.32-.263.215-.39.518-.39.917 0 .375.095.655.295.846.191.2.47.296.838.296zm6.41.862c-.144 0-.24-.024-.304-.08-.064-.048-.12-.16-.168-.311L7.586 5.55a1.398 1.398 0 0 1-.072-.32c0-.128.064-.2.191-.2h.783c.151 0 .255.025.31.08.065.048.113.16.16.312l1.342 5.284 1.245-5.284c.04-.16.088-.264.151-.312a.549.549 0 0 1 .32-.08h.638c.152 0 .256.025.32.08.063.048.12.16.151.312l1.261 5.348 1.381-5.348c.048-.16.104-.264.16-.312a.52.52 0 0 1 .311-.08h.743c.127 0 .2.065.2.2 0 .04-.009.08-.017.128a1.137 1.137 0 0 1-.056.2l-1.923 6.17c-.048.16-.104.263-.168.311a.51.51 0 0 1-.303.08h-.687c-.151 0-.255-.024-.32-.08-.063-.056-.119-.16-.15-.32l-1.238-5.148-1.23 5.14c-.04.16-.087.264-.15.32-.065.056-.177.08-.32.08zm10.256.215c-.415 0-.83-.048-1.229-.143-.399-.096-.71-.2-.918-.32-.128-.071-.215-.151-.247-.223a.563.563 0 0 1-.048-.224v-.407c0-.167.064-.247.183-.247.048 0 .096.008.144.024.048.016.12.048.2.08.271.12.566.215.878.279.319.064.63.096.95.096.502 0 .894-.088 1.165-.264a.86.86 0 0 0 .415-.758.777.777 0 0 0-.215-.559c-.144-.151-.416-.287-.807-.415l-1.157-.36c-.583-.183-1.014-.454-1.277-.813a1.902 1.902 0 0 1-.4-1.158c0-.335.073-.63.216-.886.144-.255.335-.479.575-.654.24-.184.51-.32.83-.415.32-.096.655-.136 1.006-.136.175 0 .359.008.535.032.183.024.35.056.518.088.16.04.312.08.455.127.144.048.256.096.336.144a.69.69 0 0 1 .24.2.43.43 0 0 1 .071.263v.375c0 .168-.064.256-.184.256a.83.83 0 0 1-.303-.096 3.652 3.652 0 0 0-1.532-.311c-.455 0-.815.071-1.062.223-.248.152-.375.383-.375.71 0 .224.08.416.24.567.159.152.454.304.877.44l1.134.358c.574.184.99.44 1.237.767.247.327.367.702.367 1.117 0 .343-.072.655-.207.926-.144.272-.336.511-.583.703-.248.2-.543.343-.886.447-.36.111-.734.167-1.142.167zM21.698 16.207c-2.626 1.94-6.442 2.969-9.722 2.969-4.598 0-8.74-1.7-11.87-4.526-.247-.223-.024-.527.272-.351 3.384 1.963 7.559 3.153 11.877 3.153 2.914 0 6.114-.607 9.06-1.852.439-.2.814.287.383.607zM22.792 14.961c-.336-.43-2.22-.207-3.074-.103-.255.032-.295-.192-.063-.36 1.5-1.053 3.967-.75 4.254-.399.287.36-.08 2.826-1.485 4.007-.215.184-.423.088-.327-.151.32-.79 1.03-2.57.695-2.994z%22/%3E%3C/svg%3E"); }
+  .i-googlecloud { --u: url("data:image/svg+xml,%3Csvg viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M12.19 2.38a9.344 9.344 0 0 0-9.234 6.893c.053-.02-.055.013 0 0-3.875 2.551-3.922 8.11-.247 10.941l.006-.007-.007.03a6.717 6.717 0 0 0 4.077 1.356h5.173l.03.03h5.192c6.687.053 9.376-8.605 3.835-12.35a9.365 9.365 0 0 0-2.821-4.552l-.043.043.006-.05A9.344 9.344 0 0 0 12.19 2.38zm-.358 4.146c1.244-.04 2.518.368 3.486 1.15a5.186 5.186 0 0 1 1.862 4.078v.518c3.53-.07 3.53 5.262 0 5.193h-5.193l-.008.009v-.04H6.785a2.59 2.59 0 0 1-1.067-.23h.001a2.597 2.597 0 1 1 3.437-3.437l3.013-3.012A6.747 6.747 0 0 0 8.11 8.24c.018-.01.04-.026.054-.023a5.186 5.186 0 0 1 3.67-1.69z%22/%3E%3C/svg%3E"); }
+  .i-databricks { --u: url("data:image/svg+xml,%3Csvg viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M.95 14.184L12 20.403l9.919-5.55v2.21L12 22.662l-10.484-5.96-.565.308v.77L12 24l11.05-6.218v-4.317l-.515-.309L12 19.118l-9.867-5.653v-2.21L12 16.805l11.05-6.218V6.32l-.515-.308L12 11.974 2.647 6.681 12 1.388l7.76 4.368.668-.411v-.566L12 0 .95 6.27v.72L12 13.207l9.919-5.55v2.26L12 15.52 1.516 9.56l-.565.308Z%22/%3E%3C/svg%3E"); }
+  .i-powerbi { --u: url("data:image/svg+xml,%3Csvg viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M10 12a1 1 0 0 1 1 1v11H4a1 1 0 0 1-1-1V13a1 1 0 0 1 1-1h6Zm-2-.5V7a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v17h-4.5V13a1.5 1.5 0 0 0-1.5-1.5H8Zm5-6V1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1h-3.5V7A1.5 1.5 0 0 0 15 5.5h-2Z%22/%3E%3C/svg%3E"); }
+  .caps { display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; border-top: 1px solid var(--ink); }
+  .cap { display: grid; grid-template-columns: 56px 1fr; gap: 20px; padding: 32px 0 34px; border-bottom: 1px solid var(--line); position: relative; }
+  .cap::after { content: ''; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+  .cap:hover::after { transform: scaleX(1); }
+  .cap .ic { width: 56px; height: 56px; border: 1.5px solid var(--ink); display: grid; place-items: center; color: var(--blue); transition: background .25s, color .25s, border-color .25s; }
+  .cap:hover .ic { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .cap .ic svg * { stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.4s ease .2s; }
+  .cap.in .ic svg * { stroke-dashoffset: 0; }
+  .cap:hover .ic svg * { animation: redraw .9s ease; }
+  @keyframes redraw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+  .cap h3 { font-size: 22px; font-weight: 600; letter-spacing: -.03em; line-height: 1.15; }
+  .cap p { font-size: 15.5px; color: var(--muted); margin-top: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; font: 500 11.5px var(--mono); padding: 4px 8px; border: 1px solid var(--line); color: var(--ink); background: #fff; }
+  .chip .ico { width: 14px; height: 14px; }
+  .chip .ico.lg { width: 22px; }
+  .why { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1000px; margin: 88px auto 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .why > div { position: relative; padding: 34px 30px 36px; }
+  .why > div + div { border-left: 1px solid var(--line); }
+  .why > div::before { content: ''; position: absolute; left: 0; top: -1px; height: 3px; width: 100%; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.2,.7,.2,1) calc(var(--d, 0ms) + 200ms); }
+  .why > div.in::before { transform: scaleX(1); }
+  .why .big { font: 600 clamp(56px, 7vw, 88px)/1 var(--sans); letter-spacing: -.05em; color: var(--blue); }
+  .why h3 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; margin-top: 14px; }
+  .why p { font-size: 15.5px; color: var(--muted); margin-top: 6px; }
+
+  /* ---------- Company data ---------- */
+  .codes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--ink); }
+  .code { padding: 24px 24px 26px; background: #fff; }
+  .code .k { font: 500 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .code .v { font: 500 21px var(--mono); letter-spacing: -.02em; margin-top: 10px; }
+  .code .d { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .code.naics { grid-column: span 2; }
+  .code.naics .v { line-height: 1.5; }
+  .cert-list { list-style: none; margin-top: 8px; }
+  .cert-list li { position: relative; padding-left: 14px; font-size: 14px; color: var(--muted); line-height: 1.45; margin-top: 4px; }
+  .cert-list li::before { content: ''; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; background: var(--blue); }
+  .cert-list b { font: 500 15px var(--mono); color: var(--ink); }
+  .exp { margin-top: 72px; text-align: center; }
+  .exp .k { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .exp > p { color: var(--muted); margin-top: 8px; font-size: 15px; }
+  .orgs { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-top: 26px; }
+  .org { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 14px; padding: 26px 10px 24px; }
+  .org + .org { border-left: 1px solid var(--line); }
+  .org img { height: 72px; width: auto; max-width: 100%; object-fit: contain; transition: filter .3s, opacity .3s; }
+  .org.wide img { height: 30px; margin: 21px 0; }
+  .org span { font: 500 13.5px/1.3 var(--sans); }
+  .dl { text-align: center; margin-top: 44px; }
+
+  /* ---------- Contact ---------- */
+  .contact { border-top: 1px solid var(--line); }
+  .contact .head p a { color: var(--blue); }
+  .contact .head .mail { font: 500 26px/1.3 var(--sans); letter-spacing: -.01em; text-decoration: none; border-bottom: 1.5px solid var(--blue); }
+  .contact .head .mail:hover { border-bottom-width: 3px; }
+  form { display: grid; gap: 18px; max-width: 680px; margin: 0 auto; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .fld { position: relative; }
+  .fld input, .fld textarea { width: 100%; font: 400 16px var(--sans); color: var(--ink); background: #fff; border: 1px solid #c9cdd6; border-radius: 0; padding: 24px 42px 10px 14px; transition: border-color .2s, box-shadow .2s; }
+  .fld textarea { min-height: 150px; resize: vertical; padding-right: 14px; }
+  .fld input:hover, .fld textarea:hover { border-color: var(--ink); }
+  .fld label { position: absolute; left: 15px; top: 17px; font-size: 16px; color: var(--muted); pointer-events: none; transform-origin: left top; transition: transform .2s, color .2s; }
+  .fld input:focus, .fld textarea:focus { outline: none; border-color: var(--blue); box-shadow: inset 0 -2px 0 var(--blue); }
+  .fld input:focus + label, .fld input:not(:placeholder-shown) + label, .fld textarea:focus + label, .fld textarea:not(:placeholder-shown) + label { transform: translateY(-10px) scale(.75); color: var(--blue); }
+  .fld .ok { position: absolute; right: 14px; top: 19px; width: 18px; height: 18px; border-radius: 50%; background: var(--ok); opacity: 0; transform: scale(.4); transition: opacity .25s, transform .25s cubic-bezier(.3,1.5,.5,1); }
+  .fld .ok::after { content: ''; position: absolute; left: 6px; top: 3px; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .fld.valid .ok { opacity: 1; transform: scale(1); }
+  .topics { border: 0; }
+  .topics legend { font: 500 13.5px var(--sans); margin-bottom: 12px; }
+  .topics .opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .topics label { position: relative; cursor: pointer; display: block; }
+  .topics input { position: absolute; opacity: 0; pointer-events: none; }
+  .topics span { display: flex; align-items: center; gap: 12px; height: 52px; font: 500 15px var(--sans); padding: 0 16px; border: 1px solid #c9cdd6; background: #fff; transition: background .15s, border-color .15s, color .15s; }
+  .topics span::before { content: ''; flex: none; width: 16px; height: 16px; border: 1.5px solid #9aa0ab; background: #fff center/11px no-repeat; transition: background-color .15s, border-color .15s; }
+  .topics label:hover span { border-color: var(--ink); }
+  .topics input:checked + span { border-color: var(--blue); background: #f2f4ff; color: var(--blue); }
+  .topics input:checked + span::before { border-color: var(--blue); background-color: var(--blue); background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 12%27%3E%3Cpath d=%27M2 6.2l2.6 2.6L10 3.4%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%272%27/%3E%3C/svg%3E"); }
+  .topics input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .send { justify-self: center; min-width: 190px; justify-content: center; padding: 12px 32px; }
+  .send .spin { display: none; width: 15px; height: 15px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; }
+  .send.busy .spin { display: inline-block; }
+  .send.busy .arr { display: none; }
+  .send .arr { transition: transform .2s; }
+  .send:hover .arr { transform: translateX(4px); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hp { position: absolute; left: -9999px; }
+  .err { color: var(--bad); font-size: 14px; display: none; text-align: center; }
+  .sent { display: none; max-width: 680px; margin: 0 auto; text-align: center; padding: 34px 10px; border: 1px solid var(--ink); }
+  .sent svg { width: 64px; height: 64px; }
+  .sent .c { stroke-dasharray: 230; stroke-dashoffset: 230; animation: dash .7s ease forwards; }
+  .sent .t { stroke-dasharray: 60; stroke-dashoffset: 60; animation: dash .45s ease .6s forwards; }
+  @keyframes dash { to { stroke-dashoffset: 0; } }
+  .sent h3 { font-size: 22px; letter-spacing: -.02em; margin-top: 12px; }
+  .sent p { color: var(--muted); margin-top: 6px; }
+
+  footer { border-top: 1px solid var(--ink); padding: 40px 0 48px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  footer .logo .w { font-size: 26px; }
+  footer .logo .s { font-size: 11px; }
+  footer .logo .mk { width: 31px; height: 34px; }
+  footer small { font: 400 12.5px var(--mono); color: var(--muted); }
+
+  @media (max-width: 980px) {
+    section { padding: 88px 0; }
+    nav .links a:not(.btn) { display: none; }
+    .views { grid-template-columns: 1fr 1fr; }
+    .pts { grid-template-columns: 1fr 1fr; }
+    .view:nth-child(2) { border-right: 0; }
+    .view:nth-child(3) { padding-left: 0; }
+    .view:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .orgs { grid-template-columns: repeat(3, 1fr); }
+    .org:nth-child(4) { border-left: 0; }
+    .org:nth-child(n+4) { border-top: 1px solid var(--line); }
+  }
+  @media (max-width: 680px) {
+    .wrap { padding: 0 16px; }
+    .logo .w { font-size: 25px; }
+    .logo .s { font-size: 10.5px; margin-top: 5px; }
+    .logo .mk { width: 31px; height: 34px; }
+    nav .wrap { height: 66px; }
+    .hero { padding: 72px 0 320px; }
+    .views, .pts, .caps, .why, .row2, .codes { grid-template-columns: 1fr; }
+    .code.naics { grid-column: auto; }
+    .why > div + div { border-left: 0; border-top: 1px solid var(--line); }
+    .pts { padding: 0 0 0 30px; gap: 28px; }
+    .pts::before { top: 0; bottom: 0; left: 5px; right: auto; width: 2px; height: auto; transform: scaleY(0); transform-origin: top; }
+    .pts.in::before { transform: scaleY(1); }
+    .pt::before { left: -30px; top: 4px; }
+    .why > div { padding: 28px 0 30px; }
+    .view, .view + .view { padding: 26px 0 30px; border-right: 0; }
+    .view + .view { border-top: 1px solid var(--line); }
+    .orgs { grid-template-columns: 1fr 1fr; }
+    .topics .opts { grid-template-columns: 1fr 1fr; }
+    .topics span { font-size: 14px; padding: 0 12px; gap: 10px; }
+    .org:nth-child(odd) { border-left: 0; }
+    .org:nth-child(4) { border-left: 1px solid var(--line); }
+    .org:nth-child(n+3) { border-top: 1px solid var(--line); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .rv { opacity: 1; transform: none; }
+    .view .fill, .view .grow { transform: none; } .view .tick { stroke-dashoffset: 0; }
+    .pts::before { transform: none; } .pt { opacity: 1; transform: none; } .why > div::before { transform: scaleX(1); }
+    .cap .ic svg * { stroke-dashoffset: 0; }
+    .sent .c, .sent .t { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav" aria-label="Main">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Millenium Software Solutions, home">
+      <svg class="mk" viewBox="40 24 140 152" aria-hidden="true"><path d="M44 37 68 28 63 172H44z" fill="#1c2a44"/><path d="M152 28 176 37V172H157z" fill="#1c2a44"/><path d="M72 37 110 64 148 37 110 110z" fill="#2f4fd8"/></svg>
+      <span class="txt"><span class="w">millenium</span><span class="s">Software Solutions</span></span>
+    </a>
+    <div class="links">
+      <a href="#view">Overview</a>
+      <a href="#problem">The problem</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#company">Company data</a>
+      <a href="#contact" class="btn">Contact us</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<header class="hero" id="top">
+  <canvas id="px" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <h1>We help federal executives <span>plan, govern, and deliver</span> modernization programs.</h1>
+    <p class="sub">PMO support and IT consulting for multimillion-dollar technology and financial modernization programs. Our AI-enabled tools speed up program oversight, with a human in the loop for every decision.</p>
+    <p class="cert">SBA-certified WOSB &amp; EDWOSB</p>
+    <div class="cta">
+      <a href="#capabilities" class="link">See capabilities</a>
+      <a href="#contact" class="btn">Contact us</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ONE CLEAR VIEW ================= -->
+<section id="view" style="padding-top:72px">
+  <div class="wrap">
+    <div class="head rv"><h2>One clear view of budget, risk, compliance and decisions.</h2></div>
+    <div class="views">
+      <article class="view rv" style="--d:0ms">
+        <svg viewBox="0 0 180 84" aria-hidden="true">
+          <line x1="0" y1="82" x2="180" y2="82" stroke="#101114"/>
+          <g class="pulse">
+            <rect style="--i:0" x="8" y="40" width="20" height="42" fill="#c9d4ff"/>
+            <rect style="--i:1" x="42" y="30" width="20" height="52" fill="#9fb3ff"/>
+            <rect style="--i:2" x="76" y="36" width="20" height="46" fill="#7f9bff"/>
+            <rect style="--i:3" x="110" y="20" width="20" height="62" fill="#5378ff"/>
+            <rect style="--i:4" x="144" y="8" width="20" height="74" fill="#1f3dff"/>
+          </g>
+          <line x1="0" y1="24" x2="180" y2="24" stroke="#101114" stroke-dasharray="3 4"/>
+          <text x="0" y="18" font-family="Geist Mono, monospace" font-size="9" fill="#4a4f59">PLAN</text>
+        </svg>
+        <h3>Budget performance</h3>
+        <p>Obligations and spending tracked against plan each month, with the drivers behind every variance.</p>
+      </article>
+      <article class="view rv" style="--d:90ms">
+        <svg viewBox="0 0 180 84" aria-hidden="true">
+          <g font-family="Geist Mono, monospace" font-size="8.5" fill="#4a4f59"><text x="0" y="8">OPEN RISKS</text><text x="180" y="8" text-anchor="end" fill="#0a7350">TARGET</text></g>
+          <g stroke="#e2e5eb"><line x1="0" y1="30" x2="180" y2="30"/><line x1="0" y1="52" x2="180" y2="52"/></g>
+          <path d="M8 20 L42 25 L76 35 L110 50 L144 58 L172 62 L172 76 L8 76Z" fill="#eef1ff"/>
+          <line x1="0" y1="64" x2="180" y2="64" stroke="#0a7350" stroke-width="1.2" stroke-dasharray="4 4"/>
+          <path id="rk" d="M8 20 L42 25 L76 35 L110 50 L144 58 L172 62" fill="none" stroke="#1f3dff" stroke-width="2" stroke-linejoin="round"/>
+          <g fill="#fff" stroke="#1f3dff" stroke-width="1.5"><circle cx="8" cy="20" r="2.8"/><circle cx="42" cy="25" r="2.8"/><circle cx="76" cy="35" r="2.8"/><circle cx="110" cy="50" r="2.8"/><circle cx="144" cy="58" r="2.8"/><circle cx="172" cy="62" r="2.8"/></g>
+          <circle r="4.5" fill="#1f3dff"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#rk"/></animateMotion></circle>
+          <line x1="0" y1="76.5" x2="180" y2="76.5" stroke="#101114"/>
+          <g font-family="Geist Mono, monospace" font-size="8" fill="#4a4f59"><text x="8" y="84" text-anchor="middle">Q1</text><text x="76" y="84" text-anchor="middle">Q2</text><text x="144" y="84" text-anchor="middle">Q3</text></g>
+        </svg>
+        <h3>Program risks</h3>
+        <p>A register the agency owns: risks, actions, issues and decisions (RAID), scored, assigned and reviewed.</p>
+      </article>
+      <article class="view rv" style="--d:180ms">
+        <svg viewBox="0 0 180 84" aria-hidden="true">
+          <g fill="#fff" stroke="#101114"><rect x="0.5" y="4.5" width="15" height="15"/><rect x="0.5" y="34.5" width="15" height="15"/><rect x="0.5" y="64.5" width="15" height="15"/></g>
+          <g fill="#e2e5eb"><rect x="28" y="9" width="150" height="6"/><rect x="28" y="39" width="150" height="6"/><rect x="28" y="69" width="150" height="6"/></g>
+          <rect class="fill" style="--i:0" x="28" y="9" width="150" height="6" fill="#1f3dff"/>
+          <rect class="fill" style="--i:1" x="28" y="39" width="150" height="6" fill="#1f3dff"/>
+          <rect class="fill" style="--i:2" x="28" y="69" width="150" height="6" fill="#1f3dff"/>
+          <polyline class="tick" style="--i:0" points="3,12 7,16 13,7" fill="none" stroke="#1f3dff" stroke-width="2"/>
+          <polyline class="tick" style="--i:1" points="3,42 7,46 13,37" fill="none" stroke="#1f3dff" stroke-width="2"/>
+          <polyline class="tick" style="--i:2" points="3,72 7,76 13,67" fill="none" stroke="#1f3dff" stroke-width="2"/>
+        </svg>
+        <h3>Compliance status</h3>
+        <p>Security authorization and Treasury reporting requirements tracked in one place, with open items visible.</p>
+      </article>
+      <article class="view rv" style="--d:270ms">
+        <svg viewBox="0 0 180 84" aria-hidden="true">
+          <g font-family="Geist Mono, monospace" font-size="8.5" fill="#4a4f59"><text x="0" y="10">CRITERIA MET</text><text x="0" y="80">NO-GO</text><text x="160" y="80">GO</text></g>
+          <circle class="cr" style="--i:0" cx="10" cy="28" r="8"/>
+          <circle class="cr" style="--i:1" cx="34" cy="28" r="8"/>
+          <circle class="cr" style="--i:2" cx="58" cy="28" r="8"/>
+          <circle class="cr" style="--i:3" cx="82" cy="28" r="8"/>
+          <rect class="trk" x="1" y="46" width="178" height="22" rx="11"/>
+          <circle class="knob" cx="12" cy="57" r="8"/>
+        </svg>
+        <h3>Governance decisions</h3>
+        <p>Go/no-go decisions made against criteria agreed in advance, with the evidence in front of the decision makers.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE PROBLEM ================= -->
+<section class="problem" id="problem">
+  <div class="wrap">
+    <div class="head rv"><h2>Where modernization programs go <span style="color:var(--bad)">wrong</span>.</h2></div>
+    <div class="pts rv">
+      <article class="pt" style="--i:0"><span class="pk">Early</span><h3>Status comes from the integrator.</h3><p>The agency has no schedule or risk register of its own.</p></article>
+      <article class="pt" style="--i:1"><span class="pk">Mid-program</span><h3>Data conversion starts too late.</h3><p>Conversion and reconciliation begin too late for full mock cycles.</p></article>
+      <article class="pt" style="--i:2"><span class="pk">Testing</span><h3>Interfaces are tested late.</h3><p>Treasury and intragovernmental interfaces are tested at the end of the program.</p></article>
+      <article class="pt" style="--i:3"><span class="pk">Cutover</span><h3>Go-live is decided without evidence.</h3><p>No criteria-based proof of readiness backs the decision.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT WE DO ================= -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="head rv"><h2>What we do.</h2><p>Eight core competencies, across the platforms federal agencies run on.</p>
+      <div class="plats" aria-label="Platforms in our work">
+        <span class="plat"><i class="ico lg i-oracle" style="--c:#F80000"></i>Oracle</span>
+        <span class="plat"><i class="ico i-amazonaws" style="--c:#232F3E"></i>AWS</span>
+        <span class="plat"><i class="ico i-googlecloud" style="--c:#4285F4"></i>Google Cloud</span>
+        <span class="plat"><i class="ico i-databricks" style="--c:#FF3621"></i>Databricks</span>
+        <span class="plat"><i class="ico i-powerbi" style="--c:#E8B500"></i>Power BI</span>
+      </div>
+    </div>
+    <div class="caps" id="caps"></div>
+    <div class="why">
+      <div class="rv" style="--d:0ms"><div class="big"><span data-n="25">25</span>+</div><h3>Years</h3><p>of federal IT program and portfolio management leadership.</p></div>
+      <div class="rv" style="--d:120ms"><div class="big">M3</div><h3>Proven playbook</h3><p>Delivery aligned to GSA's Modernization and Migration Management (M3) Playbook.</p></div>
+      <div class="rv" style="--d:240ms"><div class="big"><span data-n="100">100</span>%</div><h3>Responsible AI</h3><p>of decisions made by people. AI-assisted analysis with human decision authority and full traceability.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPANY DATA ================= -->
+<section id="company" style="padding-top:0">
+  <div class="wrap">
+    <div class="head rv"><h2>Company data.</h2></div>
+    <div class="codes rv">
+      <div class="code"><div class="k">UEI</div><div class="v">PBHZJYJ1M8P2</div></div>
+      <div class="code"><div class="k">CAGE</div><div class="v">36LY5</div></div>
+      <div class="code"><div class="k">SAM.gov</div><div class="v">Active</div></div>
+      <div class="code"><div class="k">Business type</div><div class="v">SBA-Certified</div><ul class="cert-list"><li><b>WOSB</b> (Women Owned Small Business)</li><li><b>EDWOSB</b> (Economically Disadvantage Women Owned Small Business)</li></ul><div class="d">100% woman-owned</div></div>
+      <div class="code naics"><div class="k">NAICS</div><div class="v">541511, 541512, 541513, 541519, 541611, 541612, 541613</div></div>
+    </div>
+    <div class="exp">
+      <div class="k rv">Federal experience</div>
+      <p class="rv">Principal's program experience includes:</p>
+      <div class="orgs rv">
+        <div class="org"><img src="orgs/dol.png" alt=""><span>U.S. Department of Labor</span></div>
+        <div class="org"><img src="orgs/doe.png" alt=""><span>Department of Energy</span></div>
+        <div class="org"><img src="orgs/usmc.png" alt=""><span>U.S. Marine Corps</span></div>
+        <div class="org"><img src="orgs/faa.png" alt=""><span>Federal Aviation Administration</span></div>
+        <div class="org"><img src="orgs/uscg.png" alt=""><span>U.S. Coast Guard</span></div>
+        <div class="org wide"><img src="orgs/fnma.png" alt=""><span>Fannie Mae</span></div>
+      </div>
+    </div>
+    <p class="dl"><a class="btn" href="Millenium-Capability-Statement.pdf" target="_blank" rel="noopener">Download capability statement (PDF)</a></p>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="head rv"><h2>Contact us.</h2>
+      <p><a class="mail" href="mailto:info@mss2000.ai">info@mss2000.ai</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Millenium Software Solutions">
+      <svg class="mk" viewBox="40 24 140 152" aria-hidden="true"><path d="M44 37 68 28 63 172H44z" fill="#1c2a44"/><path d="M152 28 176 37V172H157z" fill="#1c2a44"/><path d="M72 37 110 64 148 37 110 110z" fill="#2f4fd8"/></svg>
+      <span class="txt"><span class="w">millenium</span><span class="s">Software Solutions</span></span>
+    </a>
+    <small>© 2026 Millenium Software Solutions Inc. · UEI PBHZJYJ1M8P2 · CAGE 36LY5 · SBA-Certified WOSB &amp; EDWOSB</small>
+  </div>
+</footer>
+
+<script>
+(function () {
+  function $(q, r) { return (r || document).querySelector(q); }
+  function $$(q, r) { return [].slice.call((r || document).querySelectorAll(q)); }
+
+  var I = {
+    pmo: '<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/>',
+    fin: '<path d="M3 10l9-6 9 6"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8"/><path d="M3 20h18"/>',
+    cloud: '<path d="M7 18a5 5 0 01-.9-9.9A6 6 0 0118 9a4.5 4.5 0 01-.5 9z"/>',
+    shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+    erp: '<rect x="3" y="4" width="18" height="6"/><rect x="3" y="14" width="18" height="6"/>',
+    bi: '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+    ai: '<rect x="6" y="6" width="12" height="12"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+    agile: '<path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 4v5h-5"/>'
+  };
+  var LG = {'AWS':['amazonaws','#232F3E'],'Google Cloud':['googlecloud','#4285F4'],'Databricks':['databricks','#FF3621'],'OCI':['oracle','#F80000'],'Fusion Cloud':['oracle','#F80000'],'EBS R12':['oracle','#F80000'],'EPM Cloud':['oracle','#F80000'],'Power BI':['powerbi','#E8B500']};
+  var CAPS = [
+    ['pmo', 'Portfolio governance and PMO', 'RAID management, KPI and benefits tracking, program reviews, and eCPIC / IT investment support.', ['RAID', 'KPIs', 'Program reviews', 'eCPIC']],
+    ['fin', 'Federal financial compliance', 'USSGL alignment, Treasury G-Invoicing and GTAS reporting, Business Event Type Codes (BETCs), and intragovernmental transaction reconciliation.', ['USSGL', 'G-Invoicing', 'GTAS', 'BETC']],
+    ['cloud', 'Cloud and SaaS modernization', 'Workload migration to AWS, Google Cloud, Databricks, and Oracle Cloud Infrastructure (OCI); SaaS adoption, data center moves, and technology refresh.', ['AWS', 'Google Cloud', 'Databricks', 'OCI']],
+    ['shield', 'Security and authorization', 'ATO lifecycle support and POA&amp;M tracking under FedRAMP, FISMA, and NIST requirements.', ['ATO', 'POA&amp;M', 'FedRAMP', 'FISMA', 'NIST']],
+    ['erp', 'Oracle ERP and EPM modernization', 'Oracle Federal Financials (Fusion Cloud), Oracle EBS R12 upgrades, Oracle EPM Cloud, CGI Momentum, core financial systems, and QSMO solution evaluation.', ['Fusion Cloud', 'EBS R12', 'EPM Cloud', 'CGI Momentum', 'QSMO']],
+    ['bi', 'Power BI and executive reporting', 'Designed and delivered numerous Power BI executive dashboards tracking budget, schedule, risk, and KPIs; SQL-based data validation and trend analysis to forecast program risk.', ['Power BI', 'SQL validation', 'Trend analysis']],
+    ['ai', 'AI-enabled program management', 'Responsible use of AI to automate status reporting, risk detection, and document review, with human decision authority and audit-ready traceability.', ['Status reporting', 'Risk detection', 'Document review']],
+    ['agile', 'Agile and hybrid delivery', 'Scrum and hybrid SDLC delivery for modernization programs, with release planning, backlog governance, and stakeholder alignment across business and IT teams.', ['Scrum', 'Hybrid SDLC', 'Release planning']]
+  ];
+  Object.keys(I).forEach(function (k) { I[k] = I[k].replace(/<(path|rect|polyline|circle)/g, '<$1 pathLength="100"'); });
+  $('#caps').innerHTML = CAPS.map(function (c, n) {
+    return '<article class="cap rv" style="--d:' + (n % 2) * 90 + 'ms"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" pathLength="100" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">' + I[c[0]] + '</svg></div><div><h3>' + c[1] + '</h3><p>' + c[2] + '</p><div class="chips">' + c[3].map(function (t) { var L = LG[t]; return '<span class="chip">' + (L ? '<i class="ico ' + (L[0] === 'oracle' ? 'lg ' : '') + 'i-' + L[0] + '" style="--c:' + L[1] + '"></i>' : '') + t + '</span>'; }).join('') + '</div></div></article>';
+  }).join('');
+
+  var nav = $('#nav');
+  addEventListener('scroll', function () { nav.classList.toggle('stuck', scrollY > 8); }, { passive: true });
+  var links = $$('nav .links a:not(.btn)');
+  var so = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) links.forEach(function (a) { a.classList.toggle('cur', a.getAttribute('href') === '#' + e.target.id); }); });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['top', 'view', 'problem', 'capabilities', 'company', 'contact'].forEach(function (id) { so.observe(document.getElementById(id)); });
+
+  var ro = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+  }, { threshold: .12 });
+  $$('.rv').forEach(function (el) { ro.observe(el); });
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var co = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return; co.unobserve(e.target);
+      var el = e.target, to = +el.dataset.n, t0 = null;
+      if (reduce) return;
+      (function step(now) { if (t0 === null) t0 = now; var k = Math.min(1, (now - t0) / 1400); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); })(performance.now());
+    });
+  }, { threshold: .6 });
+  $$('[data-n]').forEach(function (el) { co.observe(el); });
+
+
+  // ---- Hero: a flowing stream made of thousands of tiny pixels ----
+  (function () {
+    var hero = $('#top'), cv = $('#px'), gl;
+    try { gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false }); } catch (e) {}
+    if (!gl) { cv.style.display = 'none'; return; }
+    var FS = [
+      'precision highp float;',
+      'uniform vec2 r; uniform float t; uniform float k; uniform float u; uniform float u2; uniform float xl; uniform float xr;',
+      'float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }',
+      'float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f);',
+      '  return mix(mix(h(i), h(i + vec2(1., 0.)), f.x), mix(h(i + vec2(0., 1.)), h(i + 1.), f.x), f.y); }',
+      'float fbm(vec2 p){ float v = 0., a = .5; for (int i = 0; i < 4; i++) { v += a * n(p); p = p * 2.03 + vec2(1.7, 9.2); a *= .5; } return v; }',
+      'float lift(float px){ float a = clamp((px - xr + 60. * k) / (r.x - xr + 360. * k), 0., 1.); float on = smoothstep(180. * k, 340. * k, xl); return (u2 - u) * .95 * a * a * on; }',
+      'float base(float px, float tt){ float x = px / r.x; return u * (.42 + .16 * x * x + .04 * sin(x * 2.3 + tt * 2.2) + .02 * sin(x * 5.1 - tt * 2.9)) + lift(px); }',
+      'vec3 pal(float v){',
+      '  vec3 c0 = vec3(.97, .975, .985), c1 = vec3(.86, .88, .93), c2 = vec3(.6, .67, .96), c3 = vec3(.24, .39, 1.), c4 = vec3(.07, .18, .9);',
+      '  v = clamp(v, 0., 1.) * 4.;',
+      '  return v < 1. ? mix(c0, c1, v) : v < 2. ? mix(c1, c2, v - 1.) : v < 3. ? mix(c2, c3, v - 2.) : mix(c3, c4, v - 3.);',
+      '}',
+      'float hair(vec2 q){ return n(q) * .6 + n(q * vec2(2.3, 1.7) + 7.1) * .4; }',
+      'void main(){',
+      '  vec2 c = gl_FragCoord.xy;',
+      '  float x = c.x / r.x;',
+      '  float tt = t * .1;',
+      '  float e = 3. * k;',
+      '  float b0 = base(c.x, tt);',
+      '  float sl = (base(c.x + e, tt) - base(c.x - e, tt)) / (2. * e);',
+      '  float st = sqrt(1. + sl * sl);',
+      '  float fb = smoothstep(0., u * .05, c.y);',
+      '  float wv = sin(x * 3.1 - tt * 2.4) * .6 + sin(x * 5.3 - tt * 3.3 + 1.7) * .4;',
+      '  float br = 1. + .08 * sin(x * 2.6 - tt * 1.9);',
+      '  float hT = st * u * (.4 + .16 * x * x) * br;',
+      '  float hB = st * (u * (.4 - .03 * x + .04 * sin(x * 3.7 + tt * 1.5)) + lift(c.x) * .55) * br;',
+      '  float yc = b0 + st * u * .05 * wv;',
+      '  float hw = c.y > yc ? hT : hB;',
+      '  float v = (c.y - yc) / hw;',
+      '  float a = smoothstep(1., .72, v) * smoothstep(-1., -.9, v);',
+      '  float w = clamp((1. - v) * .5, 0., 1.);',
+      '  float g = w + .06 * sin(x * 2.5 - tt * 2. + v * 1.5);',
+      '  vec3 col = pal(g);',
+      '  float fold = sin(x * 4.2 - v * 1.4 - tt * 2.6) * .6 + sin(x * 7.1 + v * .9 - tt * 3.4 + 2.) * .4;',
+      '  col *= .93 + .09 * fold;',
+      '  float py = (c.y - yc) / st;',
+      '  float ang = .5 + .5 * sin(x * 2.4 - tt * 1.8);',
+      '  float strand = py * (1. + .08 * ang * v);',
+      '  float hr = hair(vec2(strand / (1.3 * k), c.x / (1100. * k) - tt * .5));',
+      '  float hr2 = hair(vec2(strand / (6. * k) + 3., c.x / (700. * k) + tt * .3));',
+      '  col *= .9 + .13 * hr + .06 * hr2;',
+      '  col = mix(col, vec3(1.), .25 * exp(-pow((v + 1.) * hw / (1.6 * k), 2.)));',
+      '  a *= .96 * fb;',
+      '  gl_FragColor = vec4(clamp(col, 0., 1.) * a, a);',
+      '}'
+    ].join('\n');
+    function sh(type, src) { var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; }
+    var pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 a; void main(){ gl_Position = vec4(a, 0., 1.); }'));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { cv.style.display = 'none'; return; }
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't'), uK = gl.getUniformLocation(pr, 'k'), uU = gl.getUniformLocation(pr, 'u'), uU2 = gl.getUniformLocation(pr, 'u2'), uXL = gl.getUniformLocation(pr, 'xl'), uXR = gl.getUniformLocation(pr, 'xr'), h1 = hero.querySelector('h1'), cta = hero.querySelector('.cta');
+    var T = 6, prev = null, visible = true, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function size() {
+      var d = Math.min(devicePixelRatio || 1, 2);
+      cv.width = Math.round(hero.clientWidth * d); cv.height = Math.round(hero.clientHeight * d);
+      gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uK, d);
+      var room = hero.getBoundingClientRect().bottom - cta.getBoundingClientRect().bottom - 30; gl.uniform1f(uU, Math.max(room, 120) * d);
+      var hb = hero.getBoundingClientRect(), rg = document.createRange(); rg.selectNodeContents(h1); var tb = rg.getBoundingClientRect();
+      gl.uniform1f(uU2, Math.max(hb.bottom - tb.top + 20, room) * d); gl.uniform1f(uXL, (tb.left - hb.left) * d); gl.uniform1f(uXR, (tb.right - hb.left) * d);
+    }
+    function draw() { gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.uniform1f(uT, T); gl.drawArrays(gl.TRIANGLES, 0, 3); }
+    function loop(now) {
+      if (visible && !reduce) { if (prev !== null) T += Math.min(now - prev, 50) / 1000; prev = now; draw(); } else prev = null;
+      requestAnimationFrame(loop);
+    }
+    size(); draw();
+    addEventListener('resize', function () { size(); draw(); });
+    if (document.fonts) document.fonts.ready.then(function () { size(); draw(); });
+    addEventListener('scroll', function () { visible = hero.getBoundingClientRect().bottom > 0; }, { passive: true });
+    cv.addEventListener('webglcontextlost', function (e) { e.preventDefault(); cv.style.display = 'none'; });
+    requestAnimationFrame(loop);
+  })();
+
+})();
+</script>
+</body>
+</html>

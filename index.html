@@ -61,11 +61,13 @@
   .hero { position: relative; overflow: hidden; text-align: center; padding: 84px 0 470px; }
   #px { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .hero .wrap { position: relative; z-index: 1; }
-  h1 { font-size: clamp(32px, 4.4vw, 58px); font-weight: 600; letter-spacing: -.045em; line-height: 1.04; max-width: 17em; margin: 0 auto; text-wrap: balance; }
+  h1 { font-size: clamp(30px, 3.8vw, 52px); font-weight: 600; letter-spacing: -.04em; line-height: 1.1; max-width: 18.5em; margin: 0 auto; text-wrap: balance; }
+  h1 .tail { display: block; font-size: .74em; color: #8b909b; font-weight: 500; letter-spacing: -.03em; margin-top: .45em; }
   h1 span { color: var(--blue); }
-  .hero .sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--muted); max-width: 37em; margin: 26px auto 0; }
-  .hero .cert { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 22px; }
-  .hero .cta { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: center; margin-top: 32px; }
+  .hero .sub { font-size: clamp(16px, 1.35vw, 18px); line-height: 1.6; color: var(--muted); max-width: 36em; margin: 30px auto 0; }
+  .hero .cert { display: inline-flex; align-items: center; gap: 10px; font: 500 11.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 8px 14px; margin: 0 0 30px; }
+  .hero .cert::before { content: ''; width: 6px; height: 6px; background: var(--blue); }
+  .hero .cta { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: center; margin-top: 38px; }
 
   /* ---------- One clear view ---------- */
   .views { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); }
@@ -279,9 +281,9 @@
 <header class="hero" id="top">
   <canvas id="px" aria-hidden="true"></canvas>
   <div class="wrap">
-    <h1>We help federal agencies and their delivery partners <span>plan, govern, and deliver</span> modernization programs on schedule, on budget, and audit-ready.</h1>
-    <p class="sub">PMO support and IT consulting for multimillion-dollar technology and financial modernization programs. Our AI-enabled tools speed up program oversight, with a human in the loop for every decision.</p>
     <p class="cert">SBA-certified WOSB &amp; EDWOSB</p>
+    <h1>We help federal agencies and their delivery partners <span>plan, govern, and deliver</span> modernization programs <span class="tail">on schedule, on budget, and audit-ready.</span></h1>
+    <p class="sub">PMO support and IT consulting for multimillion-dollar technology and financial modernization programs. Our AI-enabled tools speed up program oversight, with a human in the loop for every decision.</p>
     <div class="cta">
       <a href="#capabilities" class="link">See capabilities</a>
       <a href="#contact" class="btn">Contact us</a>
